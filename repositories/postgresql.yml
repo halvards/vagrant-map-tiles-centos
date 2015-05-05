@@ -1,0 +1,9 @@
+---
+- yum: name=libselinux-python
+- lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo line="exclude=postgres*" insertafter="^\[base\]$"
+- lineinfile: dest=/etc/yum.repos.d/CentOS-Base.repo line="exclude=postgresql*" insertafter="^\[updates\]$"
+- get_url: url=http://yum.postgresql.org/9.4/redhat/rhel-6-x86_64/pgdg-centos94-9.4-1.noarch.rpm
+           dest=/vagrant-share/pgdg-centos94-9.4-1.noarch.rpm
+           sha256sum=e26885d603916336b0c6bb8dac594aa646bf5b5db390591a1dc6a4b29d2eff56
+- yum: name=/vagrant-share/pgdg-centos94-9.4-1.noarch.rpm
+

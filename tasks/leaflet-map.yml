@@ -1,0 +1,8 @@
+---
+- file: path={{ apache_document_root }}/osm
+        state=directory
+        owner=root group=root mode=0755
+- copy: src=../files/map.html
+        dest={{ apache_document_root }}/osm/map.html
+        owner=root group=root mode=0644
+

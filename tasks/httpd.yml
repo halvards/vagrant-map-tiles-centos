@@ -1,0 +1,10 @@
+---
+- yum: name={{ item }}
+  with_items:
+    - httpd
+    - mod_ssl
+- name: add {{ username }} user to apache group
+  user: name={{ username }} groups=apache append=yes
+- service: name=httpd enabled=yes state=started
+- file: path=/var/log/httpd owner=root group=root mode=0755
+

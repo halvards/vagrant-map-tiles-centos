@@ -1,0 +1,8 @@
+---
+- include: ../repositories/boost.yml
+- yum: name=boost-devel enablerepo=boost,epel
+- name: Create symlink for Boost include files for compatibility with Boost source installation in Mapnik source installation playbook
+  file: src=/usr/include/boost
+        dest=/usr/local/include/boost
+        state=link
+

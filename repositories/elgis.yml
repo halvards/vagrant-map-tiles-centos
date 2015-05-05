@@ -1,0 +1,7 @@
+# RPMs of various GIS applications for Enterpris Linux and derivatives
+---
+- get_url: url=http://elgis.argeo.org/repos/6/elgis-release-6-6_0.noarch.rpm
+           dest=/vagrant-share/elgis-release-6-6_0.noarch.rpm
+           sha256sum=7a7eb43d7064446f7670f99eb3af5c3eb2b59c279d2447c3521ca838d6450a84
+- yum: name=/vagrant-share/elgis-release-6-6_0.noarch.rpm
+

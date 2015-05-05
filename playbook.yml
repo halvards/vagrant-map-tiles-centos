@@ -1,0 +1,29 @@
+---
+- hosts: all
+  vars:
+    username: vagrant
+    shapefile_zip_dir: /vagrant-share
+    osm_data_dir: /vagrant-share
+    apache_document_root: /var/www/html
+  tasks:
+    - include: ./tasks/base-centos.yml
+    - include: ./repositories/epel.yml
+    - include: ./repositories/elgis.yml
+    - include: ./tasks/httpd.yml
+    - include: ./tasks/boost.yml               # Alternatively, use boost-source.yml for installing from source
+    - include: ./tasks/mapnik-source.yml
+    - include: ./tasks/postgresql-remote.yml   # Optional, allows remote access to the PostgreSQL server
+    #- include: ./tasks/osm-default-style.yml  # Use osm-bright-mobile instead, as the default style is not optimised for mobile
+    - include: ./tasks/osm2pgsql.yml
+    - include: ./tasks/osm-database.yml
+    - include: ./tasks/osm-australia.yml
+    - include: ./tasks/mod_tile-source.yml
+    - include: ./tasks/renderd.yml
+    - include: ./tasks/osm-bright-mobile.yml
+    - include: ./tasks/leaflet-map.yml         # Optional, map in web browser
+  handlers:
+    - include: ./handlers/clear-tile-cache-handler.yml
+    - include: ./handlers/httpd-handler.yml
+    - include: ./handlers/postgresql-handler.yml
+    - include: ./handlers/renderd-handler.yml
+

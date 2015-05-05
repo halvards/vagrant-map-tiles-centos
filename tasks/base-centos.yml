@@ -1,0 +1,17 @@
+---
+- yum: name={{ item }}
+  with_items:
+    - bash
+    - bzip2
+    - coreutils
+    - curl
+    - gzip
+    - man
+    - patch
+    - sed
+    - tar
+    - unzip
+    - vim
+    - wget
+    - zip
+

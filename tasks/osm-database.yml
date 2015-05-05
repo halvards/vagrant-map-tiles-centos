@@ -1,0 +1,26 @@
+# Couldn't get the Ansible postgresql_* tasks to work
+---
+#- name: Create OSM database using Ansible module
+#  postgresql_db: name=osm encoding='UTF-8'
+- name: Does the OSM database already exist?
+  shell: /usr/bin/psql --list | /bin/grep --quiet osm
+  sudo_user: postgres
+  register: osm_database_exists
+  ignore_errors: True
+- name: Create OSM database
+  shell: /usr/bin/createdb --encoding='UTF-8' osm
+  sudo_user: postgres
+  when: osm_database_exists|failed
+- name: Enable extensions on OSM database
+  shell: /usr/bin/psql --dbname=osm --command='CREATE EXTENSION hstore;' && touch /tmp/gis-extensions.success
+         creates=/tmp/gis-extensions.success
+  sudo_user: postgres
+- name: Insert standard GIS data
+  shell: /usr/bin/psql --dbname=osm --file=/usr/pgsql-9.4/share/contrib/postgis-2.1/postgis.sql && touch /tmp/gis-sql.success
+         creates=/tmp/gis-sql.success
+  sudo_user: postgres
+- name: Insert more standard GIS data
+  shell: /usr/bin/psql --dbname=osm --file=/usr/pgsql-9.4/share/contrib/postgis-2.1/spatial_ref_sys.sql && touch /tmp/osm-sql.success
+         creates=/tmp/osm-sql.success
+  sudo_user: postgres
+
