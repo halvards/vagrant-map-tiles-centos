@@ -5,11 +5,12 @@ FileUtils.mkdir_p(File.join(File.dirname(__FILE__), 'share'))
 Vagrant.configure('2') do |config|
   vm_type = 'maptiles'
 
-  # Base box name, from https://atlas.hashicorp.com/chef/boxes/centos-6.6
-  config.vm.box = 'chef/centos-6.6'
+  # Base box name, https://atlas.hashicorp.com/bento/boxes/centos-6.7
+  config.vm.box = 'bento/centos-6.7'
 
   # The url from where the 'config.vm.box' box will be fetched if it doesn't already exist on the user's system
-  config.vm.box_url = 'https://atlas.hashicorp.com/chef/boxes/centos-6.6/versions/1.0.0/providers/virtualbox.box'
+  config.vm.box_url = 'https://atlas.hashicorp.com/bento/boxes/centos-6.7/versions/2.2.5/providers/virtualbox.box'
+
 
   # Assign this VM a unique hostname
   config.vm.host_name = "#{ENV['USER']}.#{vm_type}.centos6.vagrantup.com"
